@@ -5,7 +5,7 @@ import Image from "next/image"
 import useSWR from "swr"
 
 import { Fade } from "react-awesome-reveal"
-import { RecentSongs, TopArtists, TopSongs, CurrentlyPlaying } from "@/components/musiclayouts"
+import { RecentSongs, TopArtists, TopSongs, CurrentlyPlaying } from "@/components/MusicLayouts"
 import { getAccessToken, logout } from "@/utils/auth"
 import styles from "@/styles/music.module.sass"
 
@@ -52,11 +52,18 @@ const playFetcher = async (token: String) => {
   return data
 }
 
+interface dataInterface {
+  profile: { external_urls: { spotify: "" } };
+  artists: { items: any[] };
+  songs: { items: any[] };
+  recentlyPlayed: { items: any[] };
+}
+
 const Spotify = () => {
   const [currentlyPlaying, updatePlaying] = useState(null)
   const [fetchError, updateError] = useState("")
   const [token, updateToken] = useState("")
-  const [currentData, updateData] = useState(null)
+  const [currentData, updateData] = useState<dataInterface>()
   const [period, updatePeriod] = useState("long_term")
 
   useEffect(() => {
@@ -113,7 +120,7 @@ const Spotify = () => {
           <Flex justifyContent="center">
             <Button
               as="a"
-              href={currentData?.profile.external_urls.spotify}
+              href={currentData ? currentData.profile.external_urls.spotify : ""}
               variant="ghost"
               colorScheme="brand"
               size="lg"

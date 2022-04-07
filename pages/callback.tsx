@@ -9,8 +9,11 @@ export default function Page() {
   useEffect(() => {
     completeLogin()
       .then(() => {
-        let uuid = JSON.parse(localStorage.getItem("tokenSet")).uuid
-        Router.replace("/me/" + uuid)
+        let token = localStorage.getItem("tokenSet")
+        if (token) {
+          let uuid = JSON.parse(token).uuid
+          Router.replace("/me/" + uuid)
+        }
       })
       .catch((error: {}) => {
         console.error(error)

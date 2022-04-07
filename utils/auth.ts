@@ -30,25 +30,13 @@ async function generateCodeChallenge(code_verifier: string) {
  * @param {RequestInfo} input
  * @param {RequestInit} [init]
  */
-async function fetchJSON(input: RequestInfo, init) {
+async function fetchJSON(input: RequestInfo, init: any) {
   const response = await fetch(input, init)
   const body = await response.json()
   if (!response.ok) {
-    throw new ErrorResponse(response, body)
+    throw new Error(response.status.toString(), body)
   }
   return body
-}
-
-class ErrorResponse extends Error {
-  /**
-   * @param {Response} response
-   * @param {any} body
-   */
-  constructor(response: {}, body: {}) {
-    super(response.statusText)
-    this.status = response.status
-    this.body = body
-  }
 }
 
 export async function beginLogin() {
@@ -80,7 +68,9 @@ export async function completeLogin() {
   const params = new URLSearchParams(location.search)
 
   if (params.has("error")) {
-    throw new Error(params.get("error"))
+    let error = params.get("error")
+    if (error) throw new Error(error)
+    else throw new Error("There was an error")
   } else if (!params.has("state")) {
     throw new Error("State missing from response")
   } else if (params.get("state") !== state) {
@@ -109,7 +99,7 @@ export async function fetchWithToken(input: RequestInfo) {
   const accessToken = await getAccessToken()
 
   if (!accessToken) {
-    throw new ErrorResponse(new Response(undefined, { status: 401 }), {})
+    throw new Error("401")
   }
 
   return fetchJSON(input, {
@@ -143,8 +133,9 @@ async function createAccessToken(params: {}) {
  * @returns {Promise<string>}
  */
 export async function getAccessToken() {
-  let tokenSet = JSON.parse(localStorage.getItem("tokenSet"))
-
+  let tokenSet
+  let token = localStorage.getItem("tokenSet")
+  if (token) tokenSet = JSON.parse(token)
   if (!tokenSet) return
 
   if (tokenSet.expires_at < Date.now()) {

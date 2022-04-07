@@ -10,8 +10,11 @@ export default function Home() {
   // if logged in, redirect to the dashboard
   useEffect(() => {
     if (user) {
-      let uuid = JSON.parse(localStorage.getItem("tokenSet")).uuid
-      Router.replace("/me/" + uuid)
+      let token = localStorage.getItem("tokenSet")
+      if (token) {
+        let uuid = JSON.parse(token).uuid
+        Router.replace("/me/" + uuid)
+      } else Router.replace("/")
     }
   }, [user])
 
