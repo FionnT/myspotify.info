@@ -3,8 +3,8 @@ import { Box, Heading, SimpleGrid, Text, useBreakpointValue, Button, Icon, Selec
 import Head from "next/head"
 import Image from "next/image"
 import useSWR from "swr"
-
 import { Fade } from "react-awesome-reveal"
+// local
 import { RecentSongs, TopArtists, TopSongs, CurrentlyPlaying } from "@/components/MusicLayouts"
 import { getAccessToken, logout } from "@/utils/auth"
 import styles from "@/styles/music.module.sass"
@@ -108,6 +108,8 @@ const Spotify = () => {
   return (
     <>
       <Head>
+        <title>Your Spotify Data</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="preconnect" href="https://fonts.googleapis.com"></link>
         <link rel="preconnect" href="https://fonts.gstatic.com"></link>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap" rel="stylesheet"></link>

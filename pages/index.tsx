@@ -4,6 +4,7 @@ import { Button, Icon } from "@chakra-ui/react"
 import { beginLogin } from "@/utils/auth"
 import useUser from "@/utils/use-user"
 import styles from "@/styles/home.module.sass"
+import Head from "next/head"
 
 export default function Home() {
   const { user } = useUser()
@@ -20,6 +21,10 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>Your Spotify Data</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className={styles.home}></div>
       <div className={styles.overlay}></div>
       <div className={styles.spotify}>
