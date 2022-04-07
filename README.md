@@ -1,3 +1,12 @@
+
+My Spotify Info
+
+![image](https://user-images.githubusercontent.com/1377217/162182558-ff39ff84-971d-4b99-91d2-1b56366f8140.png)
+
+Simple web app to display your recent music stats from Spotify.
+
+-- 
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
