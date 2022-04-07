@@ -73,7 +73,7 @@ const Spotify = () => {
       let data = null
       updateToken(access_token)
       try {
-        const response = await fetch(`http://localhost:3000/api/spotify-data?token=${access_token}`)
+        const response = await fetch(`${location.origin}/api/spotify-data?token=${access_token}`)
         if (response.status !== 200) {
           updateError(`There was an error: ${response.status}`)
         } else {
