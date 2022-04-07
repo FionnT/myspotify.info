@@ -1,0 +1,27 @@
+.home
+  width: 95vw
+  height: 100vh
+  margin: 0 auto
+  overflow: hidden
+  background-position: center
+  background-size: contain
+  background-repeat: no-repeat
+  background-image: url("/blur.jpg")
+  @media screen and (max-width: 1000px)
+    background-image: url("/blur-small.jpg")
+
+.overlay 
+  width: 100vw
+  height: 100vh 
+  position: absolute 
+  left: 0 
+  top: 0 
+  background-color: rgba(0,0,0,.4)
+
+.spotify 
+  position: absolute
+  left: calc(50% - 116px) 
+  top: calc(50% - 24px)
+  button
+    &:hover
+      transform: scale(1.04)
